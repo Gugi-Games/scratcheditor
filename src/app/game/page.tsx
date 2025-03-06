@@ -8,6 +8,13 @@ import Tesseract from "tesseract.js";
 export default function Page() {
   const [dataCode, setDataCode] = useState("");
 
+  const displayCanvasInNewWindow = (canvas) => {
+    const newWindow = window.open("", "Canvas Preview", "width=800,height=600");
+    if (newWindow) {
+      newWindow.document.body.appendChild(canvas);
+    }
+  };
+
   async function handleClick() {
     const iframe = document.querySelector("iframe");
     if (!iframe) return;
@@ -17,6 +24,8 @@ export default function Page() {
         useCORS: true,
         logging: false,
       });
+
+      displayCanvasInNewWindow(canvas);
 
       // Run OCR on the canvas
       const result = await Tesseract.recognize(canvas, "eng", {
@@ -44,7 +53,7 @@ export default function Page() {
           src="https://scratch.mit.edu/projects/1142499853/embed"
           width="485"
           height="402"
-          className="w-[90%] h-[90%] border-2 border-black"
+          className="w-[90%] h-[90%] border-2 border-black bg-[rgb(255,0,0)]"
         ></iframe>
       </div>
     </>
