@@ -116,7 +116,6 @@
   --sidebar-ring: rgb(112, 112, 112);
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
