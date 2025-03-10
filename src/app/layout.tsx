@@ -29,7 +29,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppNavMenu />
-        {children}
+        <div className="mt-15">{children}</div>
+        {/* </AppNavMenu> */}
       </body>
     </html>
   );
