@@ -1,30 +1,29 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 
 export default function Page() {
-  const [dataCode, setDataCode] = useState("");
+  const [size, setSize] = useState(0);
+
+  useEffect(() => {
+    setSize(Math.min(window.innerHeight, window.innerWidth));
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "scroll";
+    };
+  }, []);
 
   return (
     <>
       <title>Game</title>
-      <div className="w-screen h-screen">
-        
-        <div className="w-screen h-screen flex flex-col items-center">
-          <Button className="w-fit m-3" onClick={() => console.log("clicked")}>
-            Scan
-          </Button>
+        <div className="w-screen h-screen flex justify-center">
           <iframe
-            src="https://scratch.mit.edu/projects/1142499853/embed"
-            width="485"
-            height="402"
-            className="h-[90%] w-[58%] border-2 border-black bg-[rgb(255,0,0)]"
+            src="https://scratch.mit.edu/projects/1141174987/embed"
+            width={size * 1.175}
+            height={size - 60}
+            className="max-w-full max-h-full"
           ></iframe>
         </div>
-        
-        
-      </div>
     </>
   );
 }

@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator as Separator,
   DropdownMenuTrigger as Trigger,
 } from "../ui/dropdown-menu";
+import Link from "next/link";
 
 export default function ProfileMenu({ ...props }) {
   return (
@@ -20,10 +21,19 @@ export default function ProfileMenu({ ...props }) {
         </Trigger>
         <Content>
           <Label>My Account</Label>
+
           <Separator />
-          <Item>Profile</Item>
-          <Item>Billing</Item>
+
+          <Link href={"profile"}>
+            <Item>Profile</Item>
+          </Link>
+
+          <Link href={""}>
+            <Item>Billing</Item>
+          </Link>
+
           <Separator />
+
           <Item className="text-red-700">
             <LogOut color="oklch(0.505 0.213 27.518)" />
             Log Out
