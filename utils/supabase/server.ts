@@ -1,7 +1,6 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import { Database } from '../../types/supabase';  //npx supabase gen types typescript --project-id your-project-id > types/supabase.ts
-
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { Database } from "../../types/supabase"; //npx supabase gen types typescript --project-id your-project-id > types/supabase.ts
 
 export const createClient = async () => {
   const cookieStore = cookies();
