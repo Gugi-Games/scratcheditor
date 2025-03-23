@@ -18,7 +18,7 @@ const content: { title: string; link: string }[] = [
   },
   {
     title: "Upload maps",
-    link: "post",
+    link: "upload",
   },
 ];
 

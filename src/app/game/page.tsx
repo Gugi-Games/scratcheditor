@@ -16,14 +16,14 @@ export default function Page() {
   return (
     <>
       <title>Game</title>
-        <div className="w-screen h-screen flex justify-center">
-          <iframe
-            src="https://scratch.mit.edu/projects/1141174987/embed"
-            width={size * 1.175}
-            height={size - 60}
-            className="max-w-full max-h-full"
-          ></iframe>
-        </div>
+      <div className="w-screen h-screen flex justify-center">
+        <iframe
+          src="https://scratch.mit.edu/projects/1141174987/embed"
+          width={size * 1.175}
+          height={size - 60}
+          className="max-w-full max-h-full"
+        ></iframe>
+      </div>
     </>
   );
 }
