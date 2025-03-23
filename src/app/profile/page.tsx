@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
 import { createClient } from "../../../utils/supabase/client";
 import React, { useEffect, useState } from "react";
@@ -54,4 +55,11 @@ export default function Page() {
       )}
     </>
   );
+=======
+export default async function Page() {
+  const supabase = await createClient();
+  const { data: notes } = await supabase.from("auth.users").select();
+
+  return <pre>{JSON.stringify(notes, null, 2)}</pre>;
+>>>>>>> 14e7df27fc146563aa5bbccae7b1feb257066478
 }
