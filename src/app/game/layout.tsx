@@ -1,17 +1,38 @@
-import { redirect } from "next/navigation";
-import { createBrowserClient } from "../../../utils/supabase/client";
+"use client";
 
-export default async function Layout({
+import { redirect, useRouter } from "next/navigation";
+import { createBrowserClient } from "../../../utils/supabase/client";
+import { useEffect, useState } from "react";
+
+const supabase = createBrowserClient();
+
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createBrowserClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
-  if (!user) redirect("/login");
+  useEffect(() => {
+    async function checkAuth() {
+      const supabase = createBrowserClient();
+      const { data } = await supabase.auth.getUser();
+
+      if (!data.user) {
+        router.push("/login");
+        router.refresh();
+      } else {
+        setIsLoading(false);
+      }
+    }
+
+    checkAuth();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return <>{children}</>;
 }
