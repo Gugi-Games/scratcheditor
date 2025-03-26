@@ -1,11 +1,12 @@
-import { createServerClient } from "@supabase/ssr";
+"use server";
+import { createServerClient as _createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "../../types/supabase"; //npx supabase gen types typescript --project-id your-project-id > types/supabase.ts
 
-export const createClient = async () => {
+export const createServerClient = async () => {
   const cookieStore = await cookies();
 
-  return createServerClient<Database>(
+  return _createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {

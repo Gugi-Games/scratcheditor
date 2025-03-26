@@ -1,7 +1,10 @@
 import MapDisplay from "@/components/app/MapDisplay";
 import { Input } from "@/components/ui/input";
+import { getMaps } from "@/lib/supabase-actions";
 
-export default function Page() {
+export default async function Page() {
+  let maps = await getMaps();
+
   return (
     <div className="flex flex-col items-center gap-5">
       <Input
@@ -9,7 +12,7 @@ export default function Page() {
         type="search"
         placeholder="Search for a Level or User"
       />
-      <MapDisplay />
+      <MapDisplay content={maps} />
     </div>
   );
 }

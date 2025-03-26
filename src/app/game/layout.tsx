@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
-import { createClient } from "../../../utils/supabase/client";
+import { createBrowserClient } from "../../../utils/supabase/client";
 
 export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
+  const supabase = createBrowserClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -1,3 +1,4 @@
+import { createServerClient } from "../../../utils/supabase/server";
 import {
   Card,
   CardContent,
@@ -13,29 +14,32 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { Database } from "../../../types/supabase";
+import { getUserById } from "@/lib/supabase-actions";
 
-export default function MapDisplay(...content) {
+type MapContent = Database["public"]["Tables"]["post"]["Row"];
+
+export default async function MapDisplay({ content }: { content: any }) {
   return (
     <>
       <Carousel className="w-screen px-10 overflow-x-hidden">
-        {content.map((item) => (
-          <CarouselContent>
-            <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+        <CarouselContent>
+          {content.map((item) => (
+            <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
               <Card>
                 <CardHeader>
-                  <CardTitle>{"No Title"}</CardTitle>
-                  <CardDescription>{""}</CardDescription>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  {"DATA"}
-                </CardContent>
+                <CardContent>{"DATA"}</CardContent>
                 <CardFooter>
-                  {"AUTHOR"}
+                  {/* {getUserById(item.author)} */}
+                  {"Author"}
                 </CardFooter>
               </Card>
             </CarouselItem>
-          </CarouselContent>
-        ))}
+          ))}
+        </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
