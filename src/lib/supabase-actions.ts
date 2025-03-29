@@ -1,6 +1,7 @@
 "use server";
 
-import { createServerClient } from "../../utils/supabase/server";
+import { createServerClient } from "@/supabase/server";
+
 
 export const getMaps = async () => {
   "use server";
@@ -17,7 +18,7 @@ export const getMaps = async () => {
   return data;
 };
 
-export const getUserById = async (id) => {
+export const getUserById = async (id: any) => {
   "use server";
 
   const supabase = await createServerClient();

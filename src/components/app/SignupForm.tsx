@@ -12,13 +12,14 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { signUp } from "@/lib/supabase-actions";
 
-export default function SignupForm({ signUp }) {
+export default function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleSignUp(e) {
+  async function handleSignUp(e: { preventDefault: () => void; }) {
     e.preventDefault();
     try {
       const result = await signUp(username, password);

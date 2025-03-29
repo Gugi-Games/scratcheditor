@@ -12,8 +12,8 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { createBrowserClient } from "../../../utils/supabase/client";
 import MapPreview from "./MapPreview";
+import { createBrowserClient } from "@/supabase/client";
 
 export default function handleCreation() {
   const supabase = createBrowserClient();
@@ -24,7 +24,7 @@ export default function handleCreation() {
 
   const [error, setError] = useState("");
 
-  async function handleCreation(e) {
+  async function handleCreation(e: { preventDefault: () => void; }) {
     e.preventDefault();
     try {
       const result = await supabase.from("post").insert([

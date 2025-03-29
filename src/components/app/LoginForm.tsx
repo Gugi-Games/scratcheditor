@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createBrowserClient } from "../../../utils/supabase/client";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -14,11 +13,12 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { createBrowserClient } from "@/supabase/client";
 
 
 const supabase = createBrowserClient();
 
-export default function LoginForm({ signIn }) {
+export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -46,7 +46,7 @@ export default function LoginForm({ signIn }) {
   // }
 
   
-  async function handleSignIn(e) {
+  async function handleSignIn(e: { preventDefault: () => void; }) {
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({

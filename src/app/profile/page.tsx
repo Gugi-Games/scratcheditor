@@ -1,8 +1,8 @@
 "use client";
 
+import { createBrowserClient } from "@/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { createBrowserClient } from "../../../utils/supabase/client";
 
 export default function Page() {
   const supabase = createBrowserClient();

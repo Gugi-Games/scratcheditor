@@ -11,8 +11,8 @@ import {
   DropdownMenuTrigger as Trigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import { createBrowserClient } from "../../../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { createBrowserClient } from "@/supabase/client";
 
 export default function ProfileMenu({ ...props }) {
   const router = useRouter();
