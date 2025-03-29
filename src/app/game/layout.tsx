@@ -1,10 +1,8 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
-import { createBrowserClient } from "../../../utils/supabase/client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-const supabase = createBrowserClient();
+import { createBrowserClient } from "../../../utils/supabase/client";
 
 export default function Layout({
   children,
@@ -16,6 +14,7 @@ export default function Layout({
 
   useEffect(() => {
     async function checkAuth() {
+
       const supabase = createBrowserClient();
       const { data } = await supabase.auth.getUser();
 

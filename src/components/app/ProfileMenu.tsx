@@ -1,3 +1,5 @@
+"use client";
+
 import { LogOut } from "lucide-react";
 import { Avatar, AvatarFallback as Fallback } from "../ui/avatar";
 import {
@@ -9,8 +11,19 @@ import {
   DropdownMenuTrigger as Trigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import { createBrowserClient } from "../../../utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function ProfileMenu({ ...props }) {
+  const router = useRouter();
+
+  function handleLogout() {
+    const supabase = createBrowserClient();
+    supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
+
   return (
     <div {...props}>
       <Menu>
@@ -35,8 +48,10 @@ export default function ProfileMenu({ ...props }) {
           <Separator />
 
           <Item className="text-red-700">
-            <LogOut color="oklch(0.505 0.213 27.518)" />
-            Log Out
+            <button onClick={handleLogout} className="flex items-center gap-1">
+              <LogOut color="oklch(0.505 0.213 27.518)" />
+              Log Out
+            </button>
           </Item>
         </Content>
       </Menu>
