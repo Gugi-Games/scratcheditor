@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -17,21 +17,17 @@ import { signUp } from "@/lib/supabase-actions";
 export default function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  // const [passwordCheck, setPasswordCheck] = useState("");
 
-  async function handleSignUp(e: { preventDefault: () => void; }) {
+  async function handleSignUp(e: { preventDefault: () => void }) {
     e.preventDefault();
     try {
-      const result = await signUp(username, password);
-
-      if (result?.success) {
-        redirect("/login")
-      } else {
-        setError(result?.error || "Signup failed");
-      }
+      // if(password !== passwordCheck)
+      const result = await signUp(email, password, username);
+      if (result?.success) redirect("/login");
     } catch (error) {
       console.error(error);
-      setError("An unexpected error occurred during signup");
     }
   }
 
@@ -47,10 +43,20 @@ export default function SignupForm() {
         <form onSubmit={handleSignUp}>
           <div className="grid gap-4">
             <div className="grid gap-2">
+              <Label>Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="grid gap-2">
               <Label>Username</Label>
               <Input
                 id="username"
-                type="email"
+                type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -66,6 +72,16 @@ export default function SignupForm() {
                 required
               />
             </div>
+            {/* <div className="grid gap-2">
+              <Label>Repeat Password</Label>
+              <Input
+                id="passwordCheck"
+                type="passwordConfirm"
+                value={passwordCheck}
+                onChange={(e) => setPasswordCheck(e.target.value)}
+                required
+              />
+            </div> */}
             <Button type="submit" className="w-full">
               SignUp
             </Button>
