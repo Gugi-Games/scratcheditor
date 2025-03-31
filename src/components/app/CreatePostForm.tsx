@@ -83,7 +83,6 @@ export default function handleCreation() {
                   type="text"
                   value={dataCode}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setDataCode(e.target.value);
                   }}
                   required

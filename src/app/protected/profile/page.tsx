@@ -26,6 +26,7 @@ export default function Page() {
 
   return (
     <>
+    <title>Profile</title>
       {!user ? (
         <></>
       ) : (

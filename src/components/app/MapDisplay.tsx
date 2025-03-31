@@ -1,3 +1,4 @@
+import { getUserById } from "@/lib/supabase-actions";
 import { Database } from "../../../types/supabase";
 import {
   Card,
@@ -14,6 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import MapPreview from "./MapPreview";
 
 type MapContent = Database["public"]["Tables"]["post"]["Row"];
 
@@ -29,10 +31,11 @@ export default async function MapDisplay({ content }: { content: any }) {
                   <CardTitle>{item.title}</CardTitle>
                   <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
-                <CardContent>{"DATA"}</CardContent>
+                <CardContent>
+                  <MapPreview mapCode={item.data} tileSize={10} />
+                </CardContent>
                 <CardFooter>
-                  {/* {getUserById(item.author)} */}
-                  {"Author"}
+                  {getUserById(item.author)}
                 </CardFooter>
               </Card>
             </CarouselItem>

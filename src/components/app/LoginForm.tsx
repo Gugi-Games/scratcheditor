@@ -18,7 +18,7 @@ import { createBrowserClient } from "@/supabase/client";
 const supabase = createBrowserClient();
 
 export default function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: username,
+        email: email,
         password,
       });
 
@@ -85,12 +85,12 @@ export default function LoginForm() {
         <form onSubmit={handleSignIn}>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label>Username</Label>
+              <Label>Email</Label>
               <Input
-                id="username"
+                id="email"
                 type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
