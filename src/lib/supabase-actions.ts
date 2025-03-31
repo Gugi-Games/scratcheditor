@@ -1,6 +1,5 @@
 "use server";
 
-import { createBrowserClient } from "@/supabase/client";
 import { createServerClient } from "@/supabase/server";
 
 export const getMaps = async () => {
@@ -18,7 +17,7 @@ export const getMaps = async () => {
   return data;
 };
 
-export const getUserById = async (id: any) => {
+export const getUserById = async (id: string) => {
   "use server";
 
   const supabase = await createServerClient();
@@ -26,8 +25,8 @@ export const getUserById = async (id: any) => {
   const { data, error } = await supabase
     .from("user")
     .select("*")
-    .eq("id", `${id}`);
-
+    .eq("id", id);
+  console.log("getUserById data", data);
   if (error) {
     console.error("Error fetching data:", error);
     return null;
@@ -64,16 +63,14 @@ export const signUp = async (
   username: string
 ) => {
   "use server";
-  console.log(email, password, username);
-  const supabase = await createBrowserClient();
+  const supabase = await createServerClient();
   let { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
 
-  console.log(data);
   if (error) {
-    console.log(error);
+    console.error(error);
     return { success: false, error: error.message };
   }
 

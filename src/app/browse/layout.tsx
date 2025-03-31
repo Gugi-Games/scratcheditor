@@ -33,5 +33,10 @@ export default function Layout({
     return <Loader />;
   }
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      <title>Browse</title>
+      {children}
+    </div>
+  );
 }

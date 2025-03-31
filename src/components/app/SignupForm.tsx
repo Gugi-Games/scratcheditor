@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -19,6 +19,8 @@ export default function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
   // const [passwordCheck, setPasswordCheck] = useState("");
 
   async function handleSignUp(e: { preventDefault: () => void }) {
@@ -26,9 +28,14 @@ export default function SignupForm() {
     try {
       // if(password !== passwordCheck)
       const result = await signUp(email, password, username);
-      if (result?.success) redirect("/login");
+      console.log(result);
+      if (result?.success) {
+        router.push("/login");
+        router.refresh();
+      }
     } catch (error) {
       console.error(error);
+      setError("An error occurred during the account creation.");
     }
   }
 
@@ -41,6 +48,7 @@ export default function SignupForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSignUp}>
           <div className="grid gap-4">
             <div className="grid gap-2">
@@ -88,7 +96,10 @@ export default function SignupForm() {
             </Button>
           </div>
         </form>
-        <Link href={"login"} className="underline text-sm">
+        <Link
+          href={"login"}
+          className="underline text-sm hover:text-muted-foreground"
+        >
           Already have an account?
         </Link>
       </CardContent>

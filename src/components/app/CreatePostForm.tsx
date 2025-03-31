@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -21,13 +21,13 @@ export default function handleCreation() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dataCode, setDataCode] = useState("");
-
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  async function handleCreation(e: { preventDefault: () => void; }) {
+  async function handleCreation(e: { preventDefault: () => void }) {
     e.preventDefault();
     try {
-      const result = await supabase.from("post").insert([
+      let { data, error } = await supabase.from("post").insert([
         {
           title,
           description,
@@ -36,6 +36,13 @@ export default function handleCreation() {
           likes: 0,
         },
       ]);
+      if (data) {
+        router.push("/???");
+        router.refresh();
+      } else if (error) {
+        console.error(error);
+        setError("An error occurred while creating the post");
+      }
     } catch (error) {
       console.error(error);
       setError("An unexpected error occurred during post creation");
@@ -43,7 +50,7 @@ export default function handleCreation() {
   }
 
   return (
-    <div className="flex w-screen h-screen justify-evenly items-center">
+    <div className="flex w-screen h-screen justify-evenly items-center gap-2 mx-2">
       <form onSubmit={handleCreation}>
         <Card className="mx-auto">
           <CardHeader>
@@ -54,6 +61,7 @@ export default function handleCreation() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {error && <div className="mb-4 text-red-500">{error}</div>}
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label>Title</Label>
@@ -98,7 +106,9 @@ export default function handleCreation() {
       </form>
 
       <div className="flex justify-center items-center border-2 p-1 rounded-md">
-        <p className="absolute z-[-1] text-card-foreground">Add a map code to show a preview of the map</p>
+        <p className="absolute z-[-1] text-card-foreground">
+          Add a map code to show a preview of the map
+        </p>
         <MapPreview mapCode={dataCode} tileSize={50} />
       </div>
     </div>

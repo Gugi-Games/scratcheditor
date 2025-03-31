@@ -23,27 +23,6 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // async function handleSignIn(e) {
-  //   e.preventDefault();
-  //   try {
-  //     const result = await signIn(username, password);
-
-  //     if (result?.success) {
-  //       router.push("/game");
-  //       router.refresh();
-  //       // const user = supabase.auth.getUser();
-  //       // console.log((await user).data.user);
-  //       // const session = supabase.auth.getSession();
-  //       // console.log((await session).data.session);
-  //     } else {
-  //       setError(result?.error || "Login failed");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     setError("An unexpected error occurred");
-  //   }
-  // }
-
   async function handleSignIn(e: { preventDefault: () => void }) {
     e.preventDefault();
     try {
@@ -63,7 +42,7 @@ export default function LoginForm() {
         const session = await supabase.auth.getSession();
         console.log(session.data.session);
 
-        router.push("/protected/game");
+        router.push("game");
         router.refresh();
       }
     } catch (error) {
@@ -117,7 +96,7 @@ export default function LoginForm() {
             </Button>
           </div>
         </form>
-        <Link href={"signup"} className="underline text-sm">
+        <Link href={"signup"} className="underline text-sm hover:text-muted-foreground">
           Don't have an account yet?
         </Link>
       </CardContent>
