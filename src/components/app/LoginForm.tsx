@@ -15,7 +15,6 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { createBrowserClient } from "@/supabase/client";
 
-
 const supabase = createBrowserClient();
 
 export default function LoginForm() {
@@ -45,8 +44,7 @@ export default function LoginForm() {
   //   }
   // }
 
-  
-  async function handleSignIn(e: { preventDefault: () => void; }) {
+  async function handleSignIn(e: { preventDefault: () => void }) {
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -65,7 +63,7 @@ export default function LoginForm() {
         const session = await supabase.auth.getSession();
         console.log(session.data.session);
 
-        router.push("/game");
+        router.push("/protected/game");
         router.refresh();
       }
     } catch (error) {
@@ -119,6 +117,9 @@ export default function LoginForm() {
             </Button>
           </div>
         </form>
+        <Link href={"signup"} className="underline text-sm">
+          Don't have an account yet?
+        </Link>
       </CardContent>
     </Card>
   );

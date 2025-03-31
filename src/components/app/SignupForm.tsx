@@ -13,6 +13,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { signUp } from "@/lib/supabase-actions";
+import Link from "next/link";
 
 export default function SignupForm() {
   const [username, setUsername] = useState("");
@@ -87,6 +88,9 @@ export default function SignupForm() {
             </Button>
           </div>
         </form>
+        <Link href={"login"} className="underline text-sm">
+          Already have an account?
+        </Link>
       </CardContent>
     </Card>
   );

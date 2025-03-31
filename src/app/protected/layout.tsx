@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/app/Loader";
 import { createBrowserClient } from "@/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,12 +15,11 @@ export default function Layout({
 
   useEffect(() => {
     async function checkAuth() {
-
       const supabase = createBrowserClient();
       const { data } = await supabase.auth.getUser();
 
       if (!data.user) {
-        router.push("/login");
+        router.push("../login");
         router.refresh();
       } else {
         setIsLoading(false);
@@ -30,8 +30,8 @@ export default function Layout({
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
-  return <>{children}</>;
+  return <div>{children}</div>;
 }

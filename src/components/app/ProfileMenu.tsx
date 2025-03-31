@@ -37,7 +37,7 @@ export default function ProfileMenu({ ...props }) {
 
           <Separator />
 
-          <Link href={"profile"}>
+          <Link href={"protected/profile"}>
             <Item>Profile</Item>
           </Link>
 
