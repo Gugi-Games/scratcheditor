@@ -2,13 +2,14 @@ import { getMapById } from "@/lib/supabase-actions";
 import LoadedPage from "./loadedPage";
 
 export default async function Page({ params }: { params: any }) {
-  const map = await getMapById(Number(params.id));
+  const resolvedParams = await params;
+  const map = await getMapById(Number(resolvedParams.id));
   
   if (!map) { 
     return (
-      <div className="text-red-600 flex justify-center items-center w-screen h-screen">
+      <p className="text-red-600 text-4xl flex justify-center font-bold items-center w-screen h-screen">
         Map not found
-      </div>
+      </p>
     );
   }
 

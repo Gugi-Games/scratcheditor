@@ -26,7 +26,7 @@ export default function LoadedPage({
   const router = useRouter();
   const w = window.innerWidth;
   const h = window.innerHeight;
-  const size = Math.floor(Math.min(w, h) / 50);
+  const size = Math.floor(Math.min(w, h) / 55);
   const [query, setQuery] = useState("");
 
   function handleSearch(e: { preventDefault: () => void }) {
@@ -71,7 +71,7 @@ export default function LoadedPage({
           <Card
             onClick={() => handleClick(item.id)}
             key={item.id}
-            className="w-[24%]"
+            className="w-[24%] min-w-[450px]"
           >
             <CardHeader className="relative">
               <CardTitle>{item.title}</CardTitle>

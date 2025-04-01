@@ -22,8 +22,6 @@ export default function handleCreation() {
   const h = window.innerHeight;
   const size = Math.floor(Math.min(w, h) / 20);
 
-  console.log("size", size);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dataCode, setDataCode] = useState("");
@@ -33,7 +31,7 @@ export default function handleCreation() {
   async function handleCreation(e: { preventDefault: () => void }) {
     e.preventDefault();
     try {
-      let { data, error } = await supabase.from("post").insert([
+      let result = await supabase.from("post").insert([
         {
           title,
           description,
@@ -42,8 +40,9 @@ export default function handleCreation() {
           likes: 0,
         },
       ]);
-      if (data) {
-        router.push("/???");
+      if (result) {
+        // router.push(`/map/${result}`);
+        router.push("/browse");
         router.refresh();
       } else if (error) {
         console.error(error);
