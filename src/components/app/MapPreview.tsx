@@ -16,8 +16,8 @@ export default function MapPreview({
     r: "/mapTiles/river.svg",
     w: "/mapTiles/wall.svg",
   };
-  const mapWidth = 19;
-  const mapHeight = 14;
+  const mapWidth = 25;
+  const mapHeight = 16;
   //   const tileSize = size / mapWidth;
 
   //parse the map code into an array of tiles

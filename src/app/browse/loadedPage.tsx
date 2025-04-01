@@ -3,10 +3,19 @@
 import MapDisplay from "@/components/app/MapDisplay";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LoadedPage({ maps }: { maps: any[] }) {
+export default function LoadedPage({
+  maps,
+  popular,
+  newest,
+}: {
+  maps: any[];
+  popular: any[];
+  newest: any[];
+}) {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
@@ -33,7 +42,19 @@ export default function LoadedPage({ maps }: { maps: any[] }) {
         />
         <Button type="submit">Search</Button>
       </form>
-      <MapDisplay content={maps} />
+      {/* <MapDisplay content={maps} /> */}
+
+      <div className="w-[90%] h-1 mt-10">
+        <Separator />
+      </div>
+      <h1 className="text-4xl font-bold self-start mx-10">Most Liked Maps</h1>
+      <MapDisplay content={popular} />
+
+      <div className="w-[90%] h-1 mt-10">
+        <Separator />
+      </div>
+      <h1 className="text-4xl font-bold self-start mx-10">Recent Additions</h1>
+      <MapDisplay content={newest} />
     </div>
   );
 }

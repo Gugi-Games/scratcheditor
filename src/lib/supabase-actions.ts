@@ -36,6 +36,82 @@ export const getMapById = async (id: number) => {
   return data;
 };
 
+export const getMapByTitleOrAuthorName = async (query: string) => {
+  "use server";
+
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from("post")
+    .select("*")
+    .ilike("title", `%${query}%`)
+    .range(0, 10);
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};
+
+export const getMostLikedMaps = async () => {
+  "use server";
+
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from("post")
+    .select("*")
+    .order("likes", { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};
+
+export const getNewestMaps = async () => {
+  "use server";
+
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from("post")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};
+
+export const getRecentMaps = async () => {
+  "use server";
+
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase
+    .from("post")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};
+
 export const likeMap = async (id: number) => {
   "use server";
   const supabase = await createServerClient();
@@ -48,7 +124,7 @@ export const likeMap = async (id: number) => {
 
   if (fetchingError) {
     console.error("Error fetching likes:", fetchingError);
-    return fetchingError;
+    return null;
   }
 
   const currentLikes = data?.likes || 0;

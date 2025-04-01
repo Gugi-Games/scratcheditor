@@ -25,7 +25,7 @@ const content: { title: string; link: string }[] = [
 export default function AppNavMenu({ ...props }) {
   return (
     <NavigationMenu
-      className="flex justify-between bg-sidebar w-full p-2 fixed top-0"
+      className="flex justify-between bg-sidebar w-full p-2 fixed top-0 z-10"
       {...props}
     >
       <div className="w-1/3 "></div>

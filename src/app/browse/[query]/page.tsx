@@ -1,9 +1,11 @@
-"use client";
+"use server";
 
-import { useParams } from "next/navigation";
+import { getMapByTitleOrAuthorName } from "@/lib/supabase-actions";
+import LoadedPage from "./loadedPage";
 
-export default function Page() {
-  const params = useParams();
+export default async function Page({ params }: { params: any }) {
+  const resolvedParams = await params;
+  const maps = await getMapByTitleOrAuthorName(resolvedParams.query);
 
-  return <h1>Hello There! {params.query}</h1>;
+  return <LoadedPage data={maps || []} params={resolvedParams}/>;
 }

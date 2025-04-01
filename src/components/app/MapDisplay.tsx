@@ -27,7 +27,7 @@ export default function MapDisplay({ content }: { content: any[] }) {
   const router = useRouter();
   const w = window.innerWidth;
   const h = window.innerHeight;
-  const size = Math.floor(Math.min(w, h) / 35);
+  const size = Math.floor(Math.min(w, h) / 40);
 
   async function handleLike(id: number) {
     console.log("likeMap client");
@@ -52,10 +52,13 @@ export default function MapDisplay({ content }: { content: any[] }) {
               <CardHeader className="relative">
                 <CardTitle>{item.title}</CardTitle>
                 <CardDescription>{item.description}</CardDescription>
-                <Heart
-                  onClick={() => handleLike(item.id)}
-                  className="absolute right-6 top-2 hover:fill-red-500 hover:text-red-500"
-                />
+                <div className="absolute right-10 top-3 flex items-center gap-2">
+                  <p className="text-lg">{item.likes}</p>
+                  <Heart
+                    onClick={() => handleLike}
+                    className="hover:fill-red-500 hover:text-red-500"
+                  />
+                </div>
               </CardHeader>
               <CardContent>
                 <MapPreview mapCode={item.data} tileSize={size} />
