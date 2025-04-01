@@ -1,7 +1,7 @@
 import { getMapById } from "@/lib/supabase-actions";
 import LoadedPage from "./loadedPage";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: any }) {
   const map = await getMapById(Number(params.id));
   
   if (!map) { 
