@@ -96,7 +96,10 @@ export default function LoginForm() {
             </Button>
           </div>
         </form>
-        <Link href={"signup"} className="underline text-sm hover:text-muted-foreground">
+        <Link
+          href={"signup"}
+          className="underline text-sm hover:text-muted-foreground"
+        >
           Don't have an account yet?
         </Link>
       </CardContent>

@@ -1,6 +1,7 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { createBrowserClient } from "@/supabase/client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -13,10 +14,15 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import MapPreview from "./MapPreview";
-import { createBrowserClient } from "@/supabase/client";
 
 export default function handleCreation() {
   const supabase = createBrowserClient();
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const size = Math.floor(Math.min(w, h) / 20);
+
+  console.log("size", size);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -50,7 +56,7 @@ export default function handleCreation() {
   }
 
   return (
-    <div className="flex w-screen h-screen justify-evenly items-center gap-2 mx-2">
+    <div className="flex justify-evenly items-center gap-2 mx-2">
       <form onSubmit={handleCreation}>
         <Card className="mx-auto">
           <CardHeader>
@@ -109,7 +115,7 @@ export default function handleCreation() {
         <p className="absolute z-[-1] text-card-foreground">
           Add a map code to show a preview of the map
         </p>
-        <MapPreview mapCode={dataCode} tileSize={50} />
+        <MapPreview mapCode={dataCode} tileSize={size} />
       </div>
     </div>
   );

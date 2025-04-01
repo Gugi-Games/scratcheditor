@@ -1,24 +1,47 @@
 "use client";
 
+import { getUserById } from "@/lib/supabase-actions";
+import { createBrowserClient } from "@/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback as Fallback } from "../ui/avatar";
 import {
-  DropdownMenu as Menu,
   DropdownMenuContent as Content,
   DropdownMenuItem as Item,
   DropdownMenuLabel as Label,
+  DropdownMenu as Menu,
   DropdownMenuSeparator as Separator,
   DropdownMenuTrigger as Trigger,
 } from "../ui/dropdown-menu";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { createBrowserClient } from "@/supabase/client";
 
 export default function ProfileMenu({ ...props }) {
+  const supabase = createBrowserClient();
+  const [user, setUser] = useState<User | null>(null);
+  const [userdata, setUserdata] = useState<any | null>(null);
   const router = useRouter();
-  
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const { data, error } = await supabase.auth.getUser();
+  //     if (error) {
+  //       console.error("Error fetching user:", error);
+  //       return;
+  //     }
+
+  //     if (data?.user) {
+  //       setUser(data.user);
+  //     }
+
+  //     setUserdata(getUserById(data.user.id));
+  //   };
+
+  //   fetchUser();
+  // }, []);
+
   function handleLogout() {
-    const supabase = createBrowserClient();
     supabase.auth.signOut();
     router.push("/");
     router.refresh();
@@ -33,16 +56,15 @@ export default function ProfileMenu({ ...props }) {
           </Avatar>
         </Trigger>
         <Content>
-          <Label>My Account</Label>
+          <Label>
+            {/* {userdata.username} */}
+            My Profile
+            </Label>
 
           <Separator />
 
-          <Link href={"profile"}>
+          <Link href={"/profile"}>
             <Item>Profile</Item>
-          </Link>
-
-          <Link href={""}>
-            <Item>Billing</Item>
           </Link>
 
           <Separator />

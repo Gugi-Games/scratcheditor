@@ -1,4 +1,4 @@
-import { useState } from "react";
+"use client";
 
 export default function MapPreview({
   mapCode,
@@ -38,7 +38,7 @@ export default function MapPreview({
 
   return (
     <div
-      className="overflow-hidden flex flex-wrap"
+      className="overflow-hidden flex flex-wrap select-none"
       style={{ width: mapWidth * tileSize, height: mapHeight * tileSize }}
     >
       {mapData.map((tileSrc, index) => (

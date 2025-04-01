@@ -1,19 +1,8 @@
-import MapDisplay from "@/components/app/MapDisplay";
-import { Input } from "@/components/ui/input";
 import { getMaps } from "@/lib/supabase-actions";
+import LoadedPage from "./loadedPage";
 
 export default async function Page() {
-  let maps = await getMaps();
-  console.log(maps);
+  const maps = (await getMaps()) || [];
 
-  return (
-    <div className="flex flex-col items-center gap-5">
-      <Input
-        className="w-2xs self-center"
-        type="search"
-        placeholder="Search for a Level or User"
-      />
-      <MapDisplay content={maps} />
-    </div>
-  );
+  return <LoadedPage maps={maps} />;
 }

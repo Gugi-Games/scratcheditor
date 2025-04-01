@@ -17,15 +17,61 @@ export const getMaps = async () => {
   return data;
 };
 
-export const getUserById = async (id: string) => {
+export const getMapById = async (id: number) => {
   "use server";
 
   const supabase = await createServerClient();
 
   const { data, error } = await supabase
-    .from("user")
+    .from("post")
     .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};
+
+export const likeMap = async (id: number) => {
+  "use server";
+  const supabase = await createServerClient();
+
+  const { data, error: fetchingError } = await supabase
+    .from("post")
+    .select("likes")
+    .eq("id", id)
+    .single();
+
+  if (fetchingError) {
+    console.error("Error fetching likes:", fetchingError);
+    return fetchingError;
+  }
+
+  const currentLikes = data?.likes || 0;
+
+  const { data: updateData, error: updateError } = await supabase
+    .from("post")
+    .update({ likes: currentLikes + 1 })
     .eq("id", id);
+
+  if (updateError) {
+    console.error("Error updating likes:", updateError);
+    return updateError;
+  }
+
+  return updateData;
+};
+
+export const getUserById = async (id: string) => {
+  "use server";
+
+  const supabase = await createServerClient();
+
+  const { data, error } = await supabase.from("user").select("*").eq("id", id);
   console.log("getUserById data", data);
   if (error) {
     console.error("Error fetching data:", error);

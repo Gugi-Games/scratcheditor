@@ -10,15 +10,15 @@ import ProfileMenu from "./ProfileMenu";
 const content: { title: string; link: string }[] = [
   {
     title: "Play Game",
-    link: "game",
+    link: "/game",
   },
   {
     title: "Browse Maps",
-    link: "browse",
+    link: "/browse",
   },
   {
     title: "Upload maps",
-    link: "upload",
+    link: "/upload",
   },
 ];
 
